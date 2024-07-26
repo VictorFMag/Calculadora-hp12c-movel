@@ -17,6 +17,6 @@
     <style name="Visor">
         <item name="android:textAppearance">@style/TextoDoBotao</item>
         <item name="android:textAlignment">viewEnd</item>
-        <item name="android:backgroundTint">#797575</item>
+        <item name="android:background">#797575</item>
     </style>
 </resources>
