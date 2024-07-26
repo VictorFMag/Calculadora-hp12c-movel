@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextoDoBotao" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BotaoOperador">
+        <item name="android:textAppearance">@style/TextoDoBotao</item>
+        <item name="android:backgroundTint">#349C2D</item>
+    </style>
+
+    <style name="BotaoExtra">
+        <item name="android:textAppearance">@style/TextoDoBotao</item>
+        <item name="android:backgroundTint">#1B879D</item>
+    </style>
+
+    <style name="Visor">
+        <item name="android:textAppearance">@style/TextoDoBotao</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:backgroundTint">#797575</item>
+    </style>
+</resources>
