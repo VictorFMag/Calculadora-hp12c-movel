@@ -1,59 +1,57 @@
 package com.victor.hp12c;
 
+import android.net.wifi.aware.PublishConfig;
+
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
 public class Calculadora {
-    private int modo; // 1 = editando, 2 = exibindo, 3 = erro
+    public static final int MODO_EDITANDO = 0;
+    public static final int MODO_EXIBINDO = 1;
+    public static final int MODO_ERRO = 2;
     private double numero;
-    Deque<Double> pilha;
+    private Deque<Double> operandos;
+    private int modo = MODO_EXIBINDO;
 
     public Calculadora() {
         numero = 0;
-        modo = 1;
-        pilha = new LinkedList<Double>();
+        operandos = new LinkedList<>();
     }
 
-    public int getModo() {
-        return modo;
-    }
-
-    public void setModo(int modo) {
-        this.modo = modo;
+    public void setNumero(double numero) {
+        this.numero = numero;
+        modo = MODO_EDITANDO;
     }
 
     public double getNumero() {
         return numero;
     }
 
-    public void setNumero(double numero) {
-        this.numero = numero;
-        setModo(1);
+    public int getModo() {
+        return modo;
     }
 
     public void enter() {
-        if (modo == 3) {
-            modo = 2;
+        if (modo == MODO_ERRO) {
+            modo = MODO_EXIBINDO;
         }
-        if (modo == 1) {
-            pilha.push(getNumero());
-            modo = 2;
+        if (modo == MODO_EDITANDO) {
+            operandos.push(numero);
+            modo = MODO_EXIBINDO;
         }
     }
 
     protected void executarOperacao(BiFunction<Double, Double, Double> operacao) {
-        if (modo == 1 || modo == 3){
+        if (modo == MODO_EDITANDO || modo == MODO_ERRO) {
             enter();
         }
-        double op1 = Optional.ofNullable(pilha.pollFirst()).orElse(0.0); // Se retornar nulo, o valor vai ser 0
-        double op2 = Optional.ofNullable(pilha.pollFirst()).orElse(0.0); // Se retornar nulo, o valor vai ser 0
-
-        numero = operacao.apply(op1,op2);
-        pilha.push(numero);
+        double op1 = Optional.ofNullable(operandos.pollFirst()).orElse(0.0);
+        double op2 = Optional.ofNullable(operandos.pollFirst()).orElse(0.0);
+        numero = operacao.apply(op1, op2);
+        operandos.push(numero);
     }
-
     public void soma() {
         executarOperacao((op1, op2) -> op1 + op2);
     }
@@ -67,17 +65,14 @@ public class Calculadora {
     }
 
     public void divisao() {
-        if (modo == 1){
+        if (modo == MODO_EDITANDO) {
             enter();
         }
-        double op1 = Optional.ofNullable(pilha.pollFirst()).orElse(0.0); // Se retornar nulo, o valor vai ser 0
-        double op2 = Optional.ofNullable(pilha.pollFirst()).orElse(0.0); // Se retornar nulo, o valor vai ser 0
-        if (op1 == 0){
-            setModo(3); // erro
+        double denominador = Optional.ofNullable(operandos.peek()).orElse(0.0);
+        if (denominador == 0) {
+            modo = MODO_ERRO;
             return;
         }
-        pilha.push(op2/op1);
-        pilha.push(numero);
+        executarOperacao((op1, op2) -> op2 / op1);
     }
-
 }
