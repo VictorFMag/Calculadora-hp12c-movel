@@ -206,7 +206,7 @@
         android:id="@+id/visor"
         style="@style/Visor"
         android:layout_width="400dp"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_marginTop="70dp"
         android:backgroundTint="#797575"
         android:text="TextView"
