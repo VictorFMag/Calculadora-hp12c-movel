@@ -16,6 +16,7 @@
 
     <style name="Visor">
         <item name="android:textSize">30sp</item>
+        <item name="android:textColor">#fff</item>
         <item name="android:textAlignment">viewEnd</item>
         <item name="android:background">#797575</item>
     </style>
