@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         calculadora = new Calculadora();
 
         visor = findViewById(R.id.visor);
+        visor.setShowSoftInputOnFocus(false);
 
         btn0 = findViewById(R.id.btn0);
         btn1 = findViewById(R.id.btn1);
