@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:backgroundTint="#1B879D"
-        android:text="CLX_Memory"
+        android:text="CLX Memory"
         app:layout_constraintBottom_toBottomOf="@+id/btnCLX"
         app:layout_constraintEnd_toEndOf="@+id/btnDivision" />
 
