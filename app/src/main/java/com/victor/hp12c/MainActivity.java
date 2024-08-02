@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnEnter;
     private Button btnBackspace;
     private Button btnClx;
+    private Button btnClxMemory;
 
     private Button btnPlus;
     private Button btnMinus;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         btnEnter = findViewById(R.id.btnEnter);
         btnBackspace = findViewById(R.id.btnBackspace);
         btnClx = findViewById(R.id.btnCLX);
+        btnClxMemory = findViewById(R.id.btnClxMemory);
 
         btnPlus = findViewById(R.id.btnPlus);
         btnMinus = findViewById(R.id.btnMinus);
@@ -122,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
         btnClx.setOnClickListener((v) -> {
             visor.setText("");
+        });
+
+        btnClxMemory.setOnClickListener((v) -> {
+            visor.setText("");
+            for (double operando : calculadora.getOperandos()) {
+                calculadora.getOperandos().pop();
+            }
         });
 
         btnPlus.setOnClickListener((v) -> {

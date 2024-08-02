@@ -8,6 +8,16 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/btnClxMemory"
+        style="@style/BotaoExtra"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:backgroundTint="#1B879D"
+        android:text="CLX_Memory"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCLX"
+        app:layout_constraintEnd_toEndOf="@+id/btnDivision" />
+
+    <Button
         android:id="@+id/btnComma"
         android:layout_width="60dp"
         android:layout_height="60dp"
