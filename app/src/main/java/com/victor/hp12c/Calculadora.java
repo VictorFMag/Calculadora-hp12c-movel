@@ -65,7 +65,7 @@ public class Calculadora {
     }
 
     public void subtracao() {
-        executarOperacao((op1, op2) -> op1 - op2);
+        executarOperacao((op1, op2) -> op2 - op1);
     }
 
     public void multiplicacao() {

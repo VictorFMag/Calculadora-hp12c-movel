@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Optional;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText visor;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn7;
     private Button btn8;
     private Button btn9;
+    private Button btnComma;
 
     private Button btnEnter;
     private Button btnBackspace;
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         btn7 = findViewById(R.id.btn7);
         btn8 = findViewById(R.id.btn8);
         btn9 = findViewById(R.id.btn9);
+        btnComma = findViewById(R.id.btnComma);
 
         btnEnter = findViewById(R.id.btnEnter);
         btnBackspace = findViewById(R.id.btnBackspace);
@@ -85,8 +89,25 @@ public class MainActivity extends AppCompatActivity {
         btn8.setOnClickListener(botaoClick("8"));
         btn9.setOnClickListener(botaoClick("9"));
 
+        btnComma.setOnClickListener((v) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO){
+                visor.setText("");
+                calculadora.setModo(Calculadora.MODO_EDITANDO);
+            }
+
+            int inicioSelecao = visor.getSelectionStart();
+            int finalSelecao = visor.getSelectionEnd();
+
+            if (visor.getText().toString().equals("")) {
+                visor.getText().replace(inicioSelecao, finalSelecao, "0,");
+            } else {
+                visor.getText().replace(inicioSelecao, finalSelecao, ",");
+            }
+        });
+
         btnEnter.setOnClickListener((v) -> {
-            double valor = Double.valueOf(visor.getText().toString());
+            String texto = visor.getText().toString().replace(",", ".");
+            double valor = Double.valueOf(texto);
             calculadora.setNumero(valor);
             calculadora.enter();
             visor.setText("");
@@ -104,30 +125,51 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnPlus.setOnClickListener((v) -> {
-            double valor = Double.valueOf(visor.getText().toString());
-            calculadora.setNumero(valor);
+            String valor = "0.0"; ;
+            if (!(visor.getText().toString().equals(""))) {
+                valor = visor.getText().toString().replace(",", ".");
+            }
+            calculadora.setNumero(Double.valueOf(valor));
             calculadora.soma();
             visor.setText(
-                    calculadora.getOperandos().peek().toString()
+                    calculadora.getOperandos().peek().toString().replace(".", ",")
             );
         });
 
         btnMinus.setOnClickListener((v) -> {
-            double valor = Double.valueOf(visor.getText().toString());
-            calculadora.setNumero(valor);
+            String valor = "0.0"; ;
+            if (!(visor.getText().toString().equals(""))) {
+                valor = visor.getText().toString().replace(",", ".");
+            }
+            calculadora.setNumero(Double.valueOf(valor));
             calculadora.subtracao();
+            visor.setText(
+                    calculadora.getOperandos().peek().toString().replace(".", ",")
+            );
         });
 
         btnMultiplication.setOnClickListener((v) -> {
-            double valor = Double.valueOf(visor.getText().toString());
-            calculadora.setNumero(valor);
+            String valor = "0.0"; ;
+            if (!(visor.getText().toString().equals(""))) {
+                valor = visor.getText().toString().replace(",", ".");
+            }
+            calculadora.setNumero(Double.valueOf(valor));
             calculadora.multiplicacao();
+            visor.setText(
+                    calculadora.getOperandos().peek().toString().replace(".", ",")
+            );
         });
 
         btnDivision.setOnClickListener((v) -> {
-            double valor = Double.valueOf(visor.getText().toString());
-            calculadora.setNumero(valor);
+            String valor = "0.0"; ;
+            if (!(visor.getText().toString().equals(""))) {
+                valor = visor.getText().toString().replace(",", ".");
+            }
+            calculadora.setNumero(Double.valueOf(valor));
             calculadora.divisao();
+            visor.setText(
+                    calculadora.getOperandos().peek().toString().replace(".", ",")
+            );
         });
     }
 
