@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
     public View.OnClickListener botaoClick(final String s) {
         return (v) -> {
-            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO){
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO || calculadora.getModo() == Calculadora.MODO_ERRO){
                 visor.setText("");
                 calculadora.setModo(Calculadora.MODO_EDITANDO);
             }
