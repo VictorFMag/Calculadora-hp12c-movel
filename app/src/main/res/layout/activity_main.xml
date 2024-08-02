@@ -220,6 +220,7 @@
         android:backgroundTint="#797575"
         android:text="0,0"
         android:textAlignment="viewEnd"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="@+id/btnDivision"
         app:layout_constraintStart_toStartOf="@+id/btnCLX"
         app:layout_constraintTop_toTopOf="parent" />
