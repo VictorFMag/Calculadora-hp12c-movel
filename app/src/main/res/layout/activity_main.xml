@@ -216,7 +216,7 @@
         android:id="@+id/visor"
         android:layout_width="400dp"
         android:layout_height="100dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="150dp"
         android:backgroundTint="#797575"
         android:text="0,0"
         android:textAlignment="viewEnd"
