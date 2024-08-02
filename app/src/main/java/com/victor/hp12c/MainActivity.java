@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             int inicioSelecao = visor.getSelectionStart();
             int finalSelecao = visor.getSelectionEnd();
 
-            if (visor.getText().toString().equals("")) {
+            if (visor.getText().toString().equals("Error") || visor.getText().toString().equals("")) {
                 visor.getText().replace(inicioSelecao, finalSelecao, "0,");
             } else {
                 visor.getText().replace(inicioSelecao, finalSelecao, ",");
@@ -108,11 +108,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnEnter.setOnClickListener((v) -> {
-            String texto = visor.getText().toString().replace(",", ".");
-            double valor = Double.valueOf(texto);
-            calculadora.setNumero(valor);
+            String texto;
+            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
+                texto = visor.getText().toString().replace(",", ".");
+                double valor = Double.valueOf(texto);
+                calculadora.setNumero(valor);
+                visor.setText("");
+            } else {
+                double valor = 0.0;
+                visor.setText("0,0");
+            }
             calculadora.enter();
-            visor.setText("");
         });
 
         btnBackspace.setOnClickListener((v) -> {
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnPlus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals(""))) {
+            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -147,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnMinus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals(""))) {
+            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnMultiplication.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals(""))) {
+            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -171,14 +177,19 @@ public class MainActivity extends AppCompatActivity {
 
         btnDivision.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals(""))) {
+            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
             calculadora.divisao();
-            visor.setText(
-                    calculadora.getOperandos().peek().toString().replace(".", ",")
-            );
+
+            if (calculadora.getModo() == Calculadora.MODO_ERRO) {
+                visor.setText("Error");
+            } else {
+                visor.setText(
+                        calculadora.getOperandos().peek().toString().replace(".", ",")
+                );
+            }
         });
     }
 
