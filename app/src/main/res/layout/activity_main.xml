@@ -208,7 +208,6 @@
         android:layout_height="100dp"
         android:layout_marginTop="70dp"
         android:backgroundTint="#797575"
-        android:text="TextView"
         android:textAlignment="viewEnd"
         app:layout_constraintEnd_toEndOf="@+id/btnDivision"
         app:layout_constraintStart_toStartOf="@+id/btnCLX"
