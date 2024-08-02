@@ -27,9 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private Button btn8;
     private Button btn9;
 
-
     private Button btnEnter;
     private Button btnBackspace;
+    private Button btnClx;
+
+    private Button btnPlus;
+    private Button btnMinus;
+    private Button btnMultiplication;
+    private Button btnDivision;
 
     private Calculadora calculadora;
 
@@ -62,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
         btnEnter = findViewById(R.id.btnEnter);
         btnBackspace = findViewById(R.id.btnBackspace);
+        btnClx = findViewById(R.id.btnCLX);
+
+        btnPlus = findViewById(R.id.btnPlus);
+        btnMinus = findViewById(R.id.btnMinus);
+        btnMultiplication = findViewById(R.id.btnMultiplication);
+        btnDivision = findViewById(R.id.btnDivision);
 
         btn0.setOnClickListener(botaoClick("0"));
         btn1.setOnClickListener(botaoClick("1"));
@@ -78,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             double valor = Double.valueOf(visor.getText().toString());
             calculadora.setNumero(valor);
             calculadora.enter();
+            visor.setText("");
         });
 
         btnBackspace.setOnClickListener((v) -> {
@@ -86,10 +98,46 @@ public class MainActivity extends AppCompatActivity {
             int finalSelecao = visor.getSelectionEnd();
             visor.getText().delete(inicioSelecao, finalSelecao);
         });
+
+        btnClx.setOnClickListener((v) -> {
+            visor.setText("");
+        });
+
+        btnPlus.setOnClickListener((v) -> {
+            double valor = Double.valueOf(visor.getText().toString());
+            calculadora.setNumero(valor);
+            calculadora.soma();
+            visor.setText(
+                    calculadora.getOperandos().peek().toString()
+            );
+        });
+
+        btnMinus.setOnClickListener((v) -> {
+            double valor = Double.valueOf(visor.getText().toString());
+            calculadora.setNumero(valor);
+            calculadora.subtracao();
+        });
+
+        btnMultiplication.setOnClickListener((v) -> {
+            double valor = Double.valueOf(visor.getText().toString());
+            calculadora.setNumero(valor);
+            calculadora.multiplicacao();
+        });
+
+        btnDivision.setOnClickListener((v) -> {
+            double valor = Double.valueOf(visor.getText().toString());
+            calculadora.setNumero(valor);
+            calculadora.divisao();
+        });
     }
 
     public View.OnClickListener botaoClick(final String s) {
         return (v) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO){
+                visor.setText("");
+                calculadora.setModo(Calculadora.MODO_EDITANDO);
+            }
+
             int inicioSelecao = visor.getSelectionStart();
             int finalSelecao = visor.getSelectionEnd();
             visor.getText().replace(inicioSelecao, finalSelecao, s);

@@ -25,12 +25,20 @@ public class Calculadora {
         modo = MODO_EDITANDO;
     }
 
+    public Deque<Double> getOperandos() {
+        return operandos;
+    }
+
     public double getNumero() {
         return numero;
     }
 
     public int getModo() {
         return modo;
+    }
+
+    public void setModo(int modo) {
+        this.modo = modo;
     }
 
     public void enter() {
