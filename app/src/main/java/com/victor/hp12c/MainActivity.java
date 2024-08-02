@@ -108,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnEnter.setOnClickListener((v) -> {
-            String texto;
             if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
-                texto = visor.getText().toString().replace(",", ".");
+                String texto = visor.getText().toString().replace(",", ".");
                 double valor = Double.valueOf(texto);
                 calculadora.setNumero(valor);
                 visor.setText("");
             } else {
                 double valor = 0.0;
+                calculadora.setNumero(valor);
                 visor.setText("0,0");
             }
             calculadora.enter();
