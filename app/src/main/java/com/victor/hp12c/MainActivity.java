@@ -1,5 +1,6 @@
 package com.victor.hp12c;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             int inicioSelecao = visor.getSelectionStart();
             int finalSelecao = visor.getSelectionEnd();
 
-            if (visor.getText().toString().equals("Error") || visor.getText().toString().equals("")) {
+            if (calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals("")) {
                 visor.getText().replace(inicioSelecao, finalSelecao, "0,");
             } else {
                 visor.getText().replace(inicioSelecao, finalSelecao, ",");
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnEnter.setOnClickListener((v) -> {
-            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
                 String texto = visor.getText().toString().replace(",", ".");
                 double valor = Double.valueOf(texto);
                 calculadora.setNumero(valor);
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 calculadora.setNumero(valor);
                 visor.setText("0,0");
             }
+            visor.setTextColor(Color.WHITE);
             calculadora.enter();
         });
 
@@ -134,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnClxMemory.setOnClickListener((v) -> {
             visor.setText("");
-            for (double operando : calculadora.getOperandos()) {
+            for (int i=0; i<calculadora.getOperandos().size() - 1; i++) {
                 calculadora.getOperandos().pop();
             }
         });
 
         btnPlus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnMinus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnMultiplication.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -177,14 +179,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnDivision.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(visor.getText().toString().equals("Error") || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
             calculadora.divisao();
 
             if (calculadora.getModo() == Calculadora.MODO_ERRO) {
-                visor.setText("Error");
+                visor.setTextColor(Color.RED);
             } else {
                 visor.setText(
                         calculadora.getOperandos().peek().toString().replace(".", ",")
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener botaoClick(final String s) {
         return (v) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO || calculadora.getModo() == Calculadora.MODO_ERRO){
+                visor.setTextColor(Color.WHITE);
                 visor.setText("");
                 calculadora.setModo(Calculadora.MODO_EDITANDO);
             }
