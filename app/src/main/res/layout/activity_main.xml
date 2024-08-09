@@ -8,6 +8,56 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/btnPeriodos"
+        style="@style/BotaoJuros"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="162dp"
+        android:text="n"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTaxaJuros"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnTaxaJuros"
+        style="@style/BotaoJuros"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="24dp"
+        android:text="i"
+        app:layout_constraintBottom_toTopOf="@+id/btnCLX"
+        app:layout_constraintStart_toStartOf="@+id/btnCLX" />
+
+    <Button
+        android:id="@+id/btnPMT"
+        style="@style/BotaoJuros"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="14dp"
+        android:text="PMT"
+        app:layout_constraintBottom_toBottomOf="@+id/btnFV"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnFV"
+        style="@style/BotaoJuros"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="FV"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPV"
+        app:layout_constraintStart_toStartOf="@+id/btnPeriodos" />
+
+    <Button
+        android:id="@+id/btnPV"
+        style="@style/BotaoJuros"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#744A31"
+        android:text="PV"
+        app:layout_constraintBottom_toTopOf="@+id/btnTaxaJuros"
+        app:layout_constraintStart_toStartOf="@+id/btnTaxaJuros" />
+
+    <Button
         android:id="@+id/btnClxMemory"
         style="@style/BotaoExtra"
         android:layout_width="wrap_content"
@@ -216,12 +266,13 @@
         android:id="@+id/visor"
         android:layout_width="400dp"
         android:layout_height="100dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="120dp"
         android:backgroundTint="#797575"
         android:text="0"
         android:textAlignment="viewEnd"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="@+id/btnDivision"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="@+id/btnCLX"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

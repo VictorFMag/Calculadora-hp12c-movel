@@ -2,6 +2,7 @@ package com.victor.hp12c;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     private Button btnMinus;
     private Button btnMultiplication;
     private Button btnDivision;
+
+    private Button btnPV;
+    private Button btnFV;
+    private Button btnPMT;
+    private Button btnTaxa;
+    private Button btnPeriodos;
 
     private Calculadora calculadora;
 
@@ -80,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
         btnMinus = findViewById(R.id.btnMinus);
         btnMultiplication = findViewById(R.id.btnMultiplication);
         btnDivision = findViewById(R.id.btnDivision);
+
+        btnPV = findViewById(R.id.btnPV);
+        btnFV = findViewById(R.id.btnFV);
+        btnPMT = findViewById(R.id.btnPMT);
+        btnTaxa = findViewById(R.id.btnTaxaJuros);
+        btnPeriodos = findViewById(R.id.btnPeriodos);
 
         btn0.setOnClickListener(botaoClick("0"));
         btn1.setOnClickListener(botaoClick("1"));
@@ -141,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Botões de operações
         btnPlus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
             if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
@@ -197,6 +211,107 @@ public class MainActivity extends AppCompatActivity {
             }
             calculadora.getOperandos().pop();
         });
+
+        // Botões de juros compostos
+        btnPV.setOnClickListener((V) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
+                String valor = Double.valueOf(calculadora.calcularPV()).toString();
+                visor.setText(valor);
+            }
+            else {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                    String texto = visor.getText().toString().replace(",", ".");
+                    double valor = Double.valueOf(texto);
+                    calculadora.setPV(valor);
+                } else {
+                    double valor = 0.0;
+                    calculadora.setPV(valor);
+                }
+                visor.setTextColor(Color.WHITE);
+                visor.setText("");
+            }
+            calculadora.setModo(calculadora.MODO_EXIBINDO);
+        });
+
+        btnFV.setOnClickListener((V) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
+                String valor = Double.valueOf(calculadora.calcularFV()).toString();
+                visor.setText(valor);
+            }
+            else {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                    String texto = visor.getText().toString().replace(",", ".");
+                    double valor = Double.valueOf(texto);
+                    calculadora.setFV(valor);
+                } else {
+                    double valor = 0.0;
+                    calculadora.setFV(valor);
+                }
+                visor.setTextColor(Color.WHITE);
+                visor.setText("");
+            }
+            calculadora.setModo(calculadora.MODO_EXIBINDO);
+        });
+
+        btnPMT.setOnClickListener((V) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
+                String valor = Double.valueOf(calculadora.calcularPMT()).toString();
+                visor.setText(valor);
+            }
+            else {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                    String texto = visor.getText().toString().replace(",", ".");
+                    double valor = Double.valueOf(texto);
+                    calculadora.setPMT(valor);
+                } else {
+                    double valor = 0.0;
+                    calculadora.setPMT(valor);
+                }
+                visor.setTextColor(Color.WHITE);
+                visor.setText("");
+            }
+            calculadora.setModo(calculadora.MODO_EXIBINDO);
+        });
+
+        btnTaxa.setOnClickListener((V) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
+                String valor = Double.valueOf(calculadora.calcularTaxa()).toString();
+                visor.setText(valor);
+            }
+            else {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                    String texto = visor.getText().toString().replace(",", ".");
+                    double valor = Double.valueOf(texto);
+                    calculadora.setTaxa(valor/100);
+                } else {
+                    double valor = 0.0;
+                    calculadora.setTaxa(valor/100);
+                }
+                visor.setTextColor(Color.WHITE);
+                visor.setText("");
+            }
+            calculadora.setModo(calculadora.MODO_EXIBINDO);
+        });
+
+        btnPeriodos.setOnClickListener((V) -> {
+            if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
+                String valor = Double.valueOf(calculadora.calcularPeriodos()).toString();
+                visor.setText(valor);
+            }
+            else {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                    String texto = visor.getText().toString().replace(",", ".");
+                    double valor = Double.valueOf(texto);
+                    calculadora.setPeriodos(valor);
+                } else {
+                    double valor = 0.0;
+                    calculadora.setPeriodos(valor);
+                }
+                visor.setTextColor(Color.WHITE);
+                visor.setText("");
+            }
+            calculadora.setModo(calculadora.MODO_EXIBINDO);
+        });
     }
 
     public View.OnClickListener botaoClick(final String s) {
@@ -212,4 +327,5 @@ public class MainActivity extends AppCompatActivity {
             visor.getText().replace(inicioSelecao, finalSelecao, s);
         };
     }
+
 }

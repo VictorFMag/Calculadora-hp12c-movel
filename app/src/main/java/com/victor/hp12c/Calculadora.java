@@ -15,9 +15,55 @@ public class Calculadora {
     private Deque<Double> operandos;
     private int modo = MODO_EXIBINDO;
 
+    private double PV = 0;
+    private double FV = 0;
+    private double PMT = 0;
+    private double taxa = 0;
+    private double periodos = 0;
+
     public Calculadora() {
         numero = 0;
         operandos = new LinkedList<>();
+    }
+
+    public double getPV() {
+        return PV;
+    }
+
+    public void setPV(double PV) {
+        this.PV = PV;
+    }
+
+    public double getFV() {
+        return FV;
+    }
+
+    public void setFV(double FV) {
+        this.FV = FV;
+    }
+
+    public double getPMT() {
+        return PMT;
+    }
+
+    public void setPMT(double PMT) {
+        this.PMT = PMT;
+    }
+
+    public double getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(double taxa) {
+        this.taxa = taxa;
+    }
+
+    public double getPeriodos() {
+        return periodos;
+    }
+
+    public void setPeriodos(double periodos) {
+        this.periodos = periodos;
     }
 
     public void setNumero(double numero) {
@@ -82,5 +128,34 @@ public class Calculadora {
             return;
         }
         executarOperacao((op1, op2) -> op2 / op1);
+    }
+
+    public double calcularPV() {
+        if (taxa == 0) {
+            return PMT * periodos;
+        }
+        return PMT * (1 - Math.pow(1 + taxa, -periodos)) / taxa;
+    }
+
+    public double calcularFV() {
+        return PV * Math.pow(1 + taxa, periodos);
+    }
+
+    public double calcularPMT() {
+        if (taxa == 0) {
+            return PV / periodos;
+        }
+        return PV * taxa / (1 - Math.pow(1 + taxa, -periodos));
+    }
+
+    public double calcularTaxa() {
+        return Math.pow(FV / PV, 1.0 / periodos) - 1;
+    }
+
+    public double calcularPeriodos() {
+        if (taxa == 0) {
+            return FV - PV; // Sem juros, o número de períodos é um conceito diferente e não aplicável aqui
+        }
+        return Math.log(FV / PV) / Math.log(1 + taxa);
     }
 }

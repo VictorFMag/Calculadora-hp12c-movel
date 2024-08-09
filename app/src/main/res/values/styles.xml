@@ -13,4 +13,9 @@
         <item name="android:textAppearance">@style/TextoDoBotao</item>
         <item name="android:backgroundTint">#1B879D</item>
     </style>
+
+    <style name="BotaoJuros">
+        <item name="android:textAppearance">@style/TextoDoBotao</item>
+        <item name="android:backgroundTint">#FF744A31</item>
+    </style>
 </resources>
