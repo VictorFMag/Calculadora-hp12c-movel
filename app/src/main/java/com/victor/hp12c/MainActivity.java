@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         // Botões de juros compostos
         btnPV.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = Double.valueOf(calculadora.calcularPV()).toString();
+                String valor = String.format("%.2f", calculadora.calcularPV());
                 visor.setText(valor);
             }
             else {
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnFV.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = Double.valueOf(calculadora.calcularFV()).toString();
+                String valor = String.format("%.2f", calculadora.calcularPV());
                 visor.setText(valor);
             }
             else {
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnPMT.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = Double.valueOf(calculadora.calcularPMT()).toString();
+                String valor = String.format("%.2f", calculadora.calcularPV());
                 visor.setText(valor);
             }
             else {
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnTaxa.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = Double.valueOf(calculadora.calcularTaxa()).toString();
+                String valor = String.format("%.2f", calculadora.calcularPV());
                 visor.setText(valor);
             }
             else {
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnPeriodos.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = Double.valueOf(calculadora.calcularPeriodos()).toString();
+                String valor = String.format("%.2f", calculadora.calcularPV());
                 visor.setText(valor);
             }
             else {
