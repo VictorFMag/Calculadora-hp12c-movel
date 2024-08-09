@@ -61,7 +61,7 @@ public class Calculadora {
         operandos.push(numero);
     }
     public void soma() {
-        executarOperacao((op1, op2) -> op1 + op2);
+        executarOperacao((op1, op2) -> op2 + op1);
     }
 
     public void subtracao() {
@@ -69,7 +69,7 @@ public class Calculadora {
     }
 
     public void multiplicacao() {
-        executarOperacao((op1, op2) -> op1 * op2);
+        executarOperacao((op1, op2) -> op2 * op1);
     }
 
     public void divisao() {

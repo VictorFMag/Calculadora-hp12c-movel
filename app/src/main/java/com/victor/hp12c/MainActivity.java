@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
             visor.setText(
                     calculadora.getOperandos().peek().toString().replace(".", ",")
             );
+            calculadora.getOperandos().pop();
         });
 
         btnMinus.setOnClickListener((v) -> {
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
             visor.setText(
                     calculadora.getOperandos().peek().toString().replace(".", ",")
             );
+            calculadora.getOperandos().pop();
         });
 
         btnMultiplication.setOnClickListener((v) -> {
@@ -175,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
             visor.setText(
                     calculadora.getOperandos().peek().toString().replace(".", ",")
             );
+            calculadora.getOperandos().pop();
         });
 
         btnDivision.setOnClickListener((v) -> {
@@ -192,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         calculadora.getOperandos().peek().toString().replace(".", ",")
                 );
             }
+            calculadora.getOperandos().pop();
         });
     }
 
