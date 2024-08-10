@@ -62,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         calculadora = new Calculadora();
+        calculadora.setModo(Calculadora.MODO_EXIBINDO);
 
         visor = findViewById(R.id.visor);
         visor.setShowSoftInputOnFocus(false);
+        final int originalColor = visor.getCurrentTextColor();
 
         btn0 = findViewById(R.id.btn0);
         btn1 = findViewById(R.id.btn1);
@@ -94,27 +96,28 @@ public class MainActivity extends AppCompatActivity {
         btnTaxa = findViewById(R.id.btnTaxaJuros);
         btnPeriodos = findViewById(R.id.btnPeriodos);
 
-        btn0.setOnClickListener(botaoClick("0"));
-        btn1.setOnClickListener(botaoClick("1"));
-        btn2.setOnClickListener(botaoClick("2"));
-        btn3.setOnClickListener(botaoClick("3"));
-        btn4.setOnClickListener(botaoClick("4"));
-        btn5.setOnClickListener(botaoClick("5"));
-        btn6.setOnClickListener(botaoClick("6"));
-        btn7.setOnClickListener(botaoClick("7"));
-        btn8.setOnClickListener(botaoClick("8"));
-        btn9.setOnClickListener(botaoClick("9"));
+        btn0.setOnClickListener(botaoClick("0", originalColor));
+        btn1.setOnClickListener(botaoClick("1", originalColor));
+        btn2.setOnClickListener(botaoClick("2", originalColor));
+        btn3.setOnClickListener(botaoClick("3", originalColor));
+        btn4.setOnClickListener(botaoClick("4", originalColor));
+        btn5.setOnClickListener(botaoClick("5", originalColor));
+        btn6.setOnClickListener(botaoClick("6", originalColor));
+        btn7.setOnClickListener(botaoClick("7", originalColor));
+        btn8.setOnClickListener(botaoClick("8", originalColor));
+        btn9.setOnClickListener(botaoClick("9", originalColor));
 
         btnComma.setOnClickListener((v) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO){
-                visor.setText("");
+                visor.setText("0,0");
+                visor.setTextColor(Color.WHITE);
                 calculadora.setModo(Calculadora.MODO_EDITANDO);
             }
 
             int inicioSelecao = visor.getSelectionStart();
             int finalSelecao = visor.getSelectionEnd();
 
-            if (calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals("")) {
+            if (calculadora.getModo() == Calculadora.MODO_ERRO) {
                 visor.getText().replace(inicioSelecao, finalSelecao, "0,");
             } else {
                 visor.getText().replace(inicioSelecao, finalSelecao, ",");
@@ -122,17 +125,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnEnter.setOnClickListener((v) -> {
-            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                 String texto = visor.getText().toString().replace(",", ".");
                 double valor = Double.valueOf(texto);
                 calculadora.setNumero(valor);
-                visor.setText("");
+                visor.setText(Double.toString(valor));
+                visor.setTextColor(Color.rgb(3, 169, 244));
             } else {
                 double valor = 0.0;
                 calculadora.setNumero(valor);
                 visor.setText("0,0");
             }
-            visor.setTextColor(Color.WHITE);
             calculadora.enter();
         });
 
@@ -141,14 +144,17 @@ public class MainActivity extends AppCompatActivity {
             inicioSelecao = Math.max(inicioSelecao, 0);
             int finalSelecao = visor.getSelectionEnd();
             visor.getText().delete(inicioSelecao, finalSelecao);
+            visor.setTextColor(originalColor);
         });
 
         btnClx.setOnClickListener((v) -> {
-            visor.setText("");
+            visor.setText("0,0");
+            visor.setTextColor(originalColor);
         });
 
         btnClxMemory.setOnClickListener((v) -> {
-            visor.setText("");
+            visor.setText("0,0");
+            visor.setTextColor(originalColor);
             for (int i=0; i<calculadora.getOperandos().size() - 1; i++) {
                 calculadora.getOperandos().pop();
             }
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         // Botões de operações
         btnPlus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -166,11 +172,12 @@ public class MainActivity extends AppCompatActivity {
                     calculadora.getOperandos().peek().toString().replace(".", ",")
             );
             calculadora.getOperandos().pop();
+            visor.setTextColor(Color.rgb(3, 169, 244));
         });
 
         btnMinus.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -179,11 +186,12 @@ public class MainActivity extends AppCompatActivity {
                     calculadora.getOperandos().peek().toString().replace(".", ",")
             );
             calculadora.getOperandos().pop();
+            visor.setTextColor(Color.rgb(3, 169, 244));
         });
 
         btnMultiplication.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -192,11 +200,12 @@ public class MainActivity extends AppCompatActivity {
                     calculadora.getOperandos().peek().toString().replace(".", ",")
             );
             calculadora.getOperandos().pop();
+            visor.setTextColor(Color.rgb(3, 169, 244));
         });
 
         btnDivision.setOnClickListener((v) -> {
             String valor = "0.0"; ;
-            if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+            if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                 valor = visor.getText().toString().replace(",", ".");
             }
             calculadora.setNumero(Double.valueOf(valor));
@@ -207,7 +216,9 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 visor.setText(
                         calculadora.getOperandos().peek().toString().replace(".", ",")
+
                 );
+                visor.setTextColor(Color.rgb(3, 169, 244));
             }
             calculadora.getOperandos().pop();
         });
@@ -217,9 +228,10 @@ public class MainActivity extends AppCompatActivity {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
                 String valor = String.format("%.2f", calculadora.calcularPV());
                 visor.setText(valor);
+                visor.setTextColor(Color.rgb(3, 169, 244));
             }
             else {
-                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                     String texto = visor.getText().toString().replace(",", ".");
                     double valor = Double.valueOf(texto);
                     calculadora.setPV(valor);
@@ -227,19 +239,20 @@ public class MainActivity extends AppCompatActivity {
                     double valor = 0.0;
                     calculadora.setPV(valor);
                 }
-                visor.setTextColor(Color.WHITE);
-                visor.setText("");
+                visor.setTextColor(originalColor);
+                visor.setText("0,0");
             }
             calculadora.setModo(calculadora.MODO_EXIBINDO);
         });
 
         btnFV.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = String.format("%.2f", calculadora.calcularPV());
+                String valor = String.format("%.2f", calculadora.calcularFV());
                 visor.setText(valor);
+                visor.setTextColor(Color.rgb(3, 169, 244));
             }
             else {
-                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                     String texto = visor.getText().toString().replace(",", ".");
                     double valor = Double.valueOf(texto);
                     calculadora.setFV(valor);
@@ -247,19 +260,20 @@ public class MainActivity extends AppCompatActivity {
                     double valor = 0.0;
                     calculadora.setFV(valor);
                 }
-                visor.setTextColor(Color.WHITE);
-                visor.setText("");
+                visor.setTextColor(originalColor);
+                visor.setText("0,0");
             }
             calculadora.setModo(calculadora.MODO_EXIBINDO);
         });
 
         btnPMT.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = String.format("%.2f", calculadora.calcularPV());
+                String valor = String.format("%.2f", calculadora.calcularPMT());
                 visor.setText(valor);
+                visor.setTextColor(Color.rgb(3, 169, 244));
             }
             else {
-                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                     String texto = visor.getText().toString().replace(",", ".");
                     double valor = Double.valueOf(texto);
                     calculadora.setPMT(valor);
@@ -267,19 +281,20 @@ public class MainActivity extends AppCompatActivity {
                     double valor = 0.0;
                     calculadora.setPMT(valor);
                 }
-                visor.setTextColor(Color.WHITE);
-                visor.setText("");
+                visor.setTextColor(originalColor);
+                visor.setText("0,0");
             }
             calculadora.setModo(calculadora.MODO_EXIBINDO);
         });
 
         btnTaxa.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = String.format("%.2f", calculadora.calcularPV());
+                String valor = String.format("%.2f", calculadora.calcularTaxa());
                 visor.setText(valor);
+                visor.setTextColor(Color.rgb(3, 169, 244));
             }
             else {
-                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                     String texto = visor.getText().toString().replace(",", ".");
                     double valor = Double.valueOf(texto);
                     calculadora.setTaxa(valor/100);
@@ -287,19 +302,20 @@ public class MainActivity extends AppCompatActivity {
                     double valor = 0.0;
                     calculadora.setTaxa(valor/100);
                 }
-                visor.setTextColor(Color.WHITE);
-                visor.setText("");
+                visor.setTextColor(originalColor);
+                visor.setText("0,0");
             }
             calculadora.setModo(calculadora.MODO_EXIBINDO);
         });
 
         btnPeriodos.setOnClickListener((V) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO) {
-                String valor = String.format("%.2f", calculadora.calcularPV());
+                String valor = String.format("%.2f", calculadora.calcularPeriodos());
                 visor.setText(valor);
+                visor.setTextColor(Color.rgb(3, 169, 244));
             }
             else {
-                if (!(calculadora.getModo() == Calculadora.MODO_ERRO || visor.getText().toString().equals(""))) {
+                if (!(calculadora.getModo() == Calculadora.MODO_ERRO)) {
                     String texto = visor.getText().toString().replace(",", ".");
                     double valor = Double.valueOf(texto);
                     calculadora.setPeriodos(valor);
@@ -307,17 +323,17 @@ public class MainActivity extends AppCompatActivity {
                     double valor = 0.0;
                     calculadora.setPeriodos(valor);
                 }
-                visor.setTextColor(Color.WHITE);
-                visor.setText("");
+                visor.setTextColor(originalColor);
+                visor.setText("0,0");
             }
             calculadora.setModo(calculadora.MODO_EXIBINDO);
         });
     }
 
-    public View.OnClickListener botaoClick(final String s) {
+    public View.OnClickListener botaoClick(final String s, int originalColor) {
         return (v) -> {
             if (calculadora.getModo() == Calculadora.MODO_EXIBINDO || calculadora.getModo() == Calculadora.MODO_ERRO){
-                visor.setTextColor(Color.WHITE);
+                visor.setTextColor(originalColor);
                 visor.setText("");
                 calculadora.setModo(Calculadora.MODO_EDITANDO);
             }
