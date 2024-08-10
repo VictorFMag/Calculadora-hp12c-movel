@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.lang.Math;
 
 public class Calculadora {
     public static final int MODO_EDITANDO = 0;
@@ -131,30 +132,38 @@ public class Calculadora {
     }
 
     public double calcularPV() {
-        if (taxa == 0) {
-            return PMT * periodos;
+        if (periodos == 0) {
+            return FV;
         }
-        return PMT * (1 - Math.pow(1 + taxa, -periodos)) / taxa;
+        return FV / Math.pow(1+taxa, periodos);
     }
 
     public double calcularFV() {
+        if (periodos == 0) {
+            return PV;
+        }
         return PV * Math.pow(1 + taxa, periodos);
     }
 
     public double calcularPMT() {
-        if (taxa == 0) {
+        if (periodos == 0) {
             return PV / periodos;
         }
         return PV * taxa / (1 - Math.pow(1 + taxa, -periodos));
     }
 
     public double calcularTaxa() {
+        if (periodos == 0) {
+            setModo(MODO_ERRO);
+            return 0.0;
+        }
         return Math.pow(FV / PV, 1.0 / periodos) - 1;
     }
 
     public double calcularPeriodos() {
         if (taxa == 0) {
-            return FV - PV; // Sem juros, o número de períodos é um conceito diferente e não aplicável aqui
+            setModo(MODO_ERRO);
+            return 0.0;
         }
         return Math.log(FV / PV) / Math.log(1 + taxa);
     }
