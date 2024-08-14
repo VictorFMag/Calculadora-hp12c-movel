@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Optional;
 
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        calculadora = new Calculadora();
+        // calculadora = new Calculadora();
+        calculadora = new ViewModelProvider(this).get(Calculadora.class);
         calculadora.setModo(Calculadora.MODO_EXIBINDO);
 
         visor = findViewById(R.id.visor);
