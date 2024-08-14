@@ -268,7 +268,7 @@
         android:layout_width="400dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="50dp"
         android:backgroundTint="#797575"
         android:text="0"
         android:textAlignment="viewEnd"
